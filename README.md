@@ -1,5 +1,5 @@
 
-# LinkSeq-Demux -- basecall/demultiplex linked-reads [WIP]
+# LinkSeq-Demux -- basecall/demultiplex and trim linked-reads [WIP]
 
 **Note:** This pipeline is a work in progress.
 
@@ -20,7 +20,7 @@ This pipeline makes some assumptions about the input data. For example, it makes
 
 ## Trimming
 
-There are four trimming steps in the `demux.nf` pipeline, each of which is listed below.
+There are four trimming steps in the nextflow pipeline, each of which is listed below.
 
 * `trim_adapters` trims adapter sequences from 3' end using [BBtools/BBDuk](https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbduk-guide/).
 * `bctrim` trims linked-read barcodes from read 2. The `trimR2bc.py` is written by Elisabet Thomsen and can be found in the [bin folder](https://github.com/olavurmortensen/linkseq/blob/master/bin/trimR2bc.py) of this project. When the insert size is small and read 1 and 2 overlap, read 2 may be contaminated by the barcode attached to read 1.
@@ -29,10 +29,10 @@ There are four trimming steps in the `demux.nf` pipeline, each of which is liste
 
 ## Setup
 
-Install dependencies with `conda` using the [conda_envs/demux.yml file](https://github.com/olavurmortensen/linkseq/blob/master/conda_envs/demux.yml):
+Install dependencies with `conda` using the `environment.yml` file:
 
 ```
-conda env create -f demux.yml
+conda env create -f environment.yml
 ```
 
 Activate the environment (check the name of the environment, it should be `linkseq-demux`):
@@ -44,7 +44,7 @@ conda activate linkseq-demux
 Pull this project with `nextflow`:
 
 ```
-nextflow pull https://github.com/olavurmortensen/linkseq
+nextflow pull https://github.com/olavurmortensen/linkseq-demux
 ```
 
 ## Running on tiny-bcl
@@ -81,14 +81,14 @@ AdapterRead2,AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
 
 ### Run demux pipeline
 
-Use the `example_configs/demux.config` to get an idea how to define input parameters. For the `tiny-bcl` dataset, you should set `rundir` to `tiny-bcl-2.0.0` and `samplesheet` to `tiny-bcl-samplesheet-2.1.0.csv`. Additionally, you need the barcode whitelist, see the [barcode whitelist](https://github.com/olavurmortensen/linkseq#barcode-whitelist) section on how to obtain this list.
+Use the `tiny-bcl.config` file to get an idea how to define input parameters. For the `tiny-bcl` dataset, you should set `rundir` to `tiny-bcl-2.0.0` and `samplesheet` to `tiny-bcl-samplesheet-2.1.0.csv`. Additionally, you need the barcode whitelist, see the [barcode whitelist](https://github.com/olavurmortensen/linkseq#barcode-whitelist) section on how to obtain this list.
 
 Change the memory and CPU specifications in the configuration (under `process` and `executor`) to suit your needs before continuing.
 
 When you've made the config file and activated the `linkseq-demux` environment, run the pipeline like this:
 
 ```
-nextflow run olavurmortensen/linkseq/demux.nf -c [your config]
+nextflow run olavurmortensen/linkseq-demux -c [your config]
 ```
 
 ### Output
