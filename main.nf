@@ -362,7 +362,7 @@ process multiqc {
     publishDir "$outdir/multiqc", mode: 'copy', overwrite: true
 
     input:
-    val status from status_ch
+    val status from status_ch.collect()
 
     output:
     file "multiqc_report.html" into multiqc_report_ch
