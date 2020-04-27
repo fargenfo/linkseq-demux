@@ -2,11 +2,11 @@ FROM nfcore/base:latest
 
 LABEL \
     authors="olavur@fargen.fo" \
-    description="LinkSeq-Demux" \
+    description="LinkSeq-Demux -- basecall/demultiplex and trim linked-reads [WIP]" \
     maintainer="Ólavur Mortensen <olavur@fargen.fo>"
 
-RUN apt update -yqq && \
-    apt install -yqq \
+RUN apt_get update -yqq && \
+    apt_get install -yqq \
     unzip
 
 COPY environment.yml /
