@@ -5,8 +5,8 @@ LABEL \
     description="LinkSeq-Demux -- basecall/demultiplex and trim linked-reads [WIP]" \
     maintainer="Ólavur Mortensen <olavur@fargen.fo>"
 
-RUN apt_get update -yqq && \
-    apt_get install -yqq \
+RUN apt-get update -yqq && \
+    apt-get install -yqq \
     unzip
 
 COPY environment.yml /
