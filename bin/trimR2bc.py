@@ -3,13 +3,13 @@
 """
 Author: Elisabet Thomsen
 Date: 18-03-2020
-Description: Program that trims barcodes off R2.
-It checks if the 16 first bases in R1 are barcodes in the whitelist.
+Description: Program meant for linked reads. It trims barcodes off R2 if the insert size was too short and therefore lead to contamination.
+Checks if the 16 first bases in R1 are barcodes in the whitelist.
 If positive, it reverse compliments the barcode, and checks if the rev_barcode is in the corresponding R2. If negative, it searches for rev_bc with one mismatch.
-It searches from the 5' end and cuts the first match it finds.
-If cuts line 4 to same length as line 2.
+Searches from the 5' end and cuts the first match it finds.
+Cuts line 4 (containing the base QS) to same length as line 2.
 If R1 or R2 are shorter than 16 bp it will not trim.
-Checks if line 2 contains nothing (''). If true, replaces '' with 'N' and replaces line 4 with '!'.
+After trim it checks if line 2 contains nothing (''). If true, replaces '' with 'N' and replaces line 4 with '!'.
 Throughput: Approx. 6381 read-pairs/second
 Output: A barcode trimmed R2 fastq file (not gzipped).
 Input: R1 and R2 must be in two seperate fastq files. If they are gzipped, they must end with '.gz'.
@@ -101,18 +101,14 @@ print("Whitelistfile:", whitelistfile)
 # Make barcodelist (set)
 barcodelist = set()
 
-print("Making the barcodelist ...")
-
 for line in barcodefile:
     barcodelist.add(line[:-1])
-
-print("Done!")
 
 
 # Initializing
 count = 0
 kmerlength = 16
-chunksize = 200000
+chunksize = 1024*1024
 printthis = ''
 readcount = 0
 chunkreadcount = 0
@@ -240,12 +236,21 @@ print('BCtrimmedfile:', outfilename)
 # Print stats
 print('R2_Stats:')
 print('Total_reads:', readcount)
-perc = (trimfbccount/readcount) * 100
+if trimfbccount != 0:
+    perc = (trimfbccount/readcount) * 100
+else:
+    perc = 0
 print('BCtrimmed(0_mismatch):', trimfbccount, '(' + '{:.2f}'.format(perc) + '%)')
-perc = (trimhbccount/readcount) * 100
+if trimhbccount != 0:
+    perc = (trimhbccount/readcount) * 100
+else:
+    perc = 0
 print('BCtrimmed(1_mismatch):', trimhbccount, '(' + '{:.2f}'.format(perc) + '%)')
 print('Total_bases:', totalbp)
-perc = (totalbptrim/totalbp) * 100
+if totalbptrim != 0:
+    perc = (totalbptrim/totalbp) * 100
+else:
+    perc = 0
 print('Total_bases_trimmed:', totalbptrim, '(' + '{:.2f}'.format(perc) + '%)')
 print('\n')
 

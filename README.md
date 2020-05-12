@@ -23,7 +23,7 @@ This pipeline makes some assumptions about the input data. For example, it makes
 There are four trimming steps in the nextflow pipeline, each of which is listed below.
 
 * `trim_adapters` trims adapter sequences from 3' end using [BBtools/BBDuk](https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbduk-guide/).
-* `bctrim` trims linked-read barcodes from read 2. The `trimR2bc.py` is written by Elisabet Thomsen and can be found in the [bin folder](https://github.com/olavurmortensen/linkseq/blob/master/bin/trimR2bc.py) of this project. When the insert size is small and read 1 and 2 overlap, read 2 may be contaminated by the barcode attached to read 1.
+* `bctrim` trims linked-read barcodes from read 2. When the insert size is small and read 1 and 2 overlap, read 2 may be contaminated by the barcode attached to read 1. The `bin/trimR2bc.py` was taken from release `v1.0` of [trimR2bc](https://github.com/ElisabetThomsen/trimR2bc/releases/tag/v1.0) by Elisabet Thomsen. See the GitHub repository for more details: https://github.com/ElisabetThomsen/trimR2bc
 * `polyG_trim` trims poly-G tails from reads using [fastp](https://github.com/OpenGene/fastp).
 * `quality_trim_read1`/`quality_trim_read2` trims low quality bases from read 1 and 2 respectively.
 
