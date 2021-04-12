@@ -1,7 +1,5 @@
 
-# LinkSeq-Demux -- basecall/demultiplex and trim linked-reads [WIP]
-
-**Note:** This pipeline is a work in progress.
+# LinkSeq-Demux -- basecall/demultiplex and trim linked-reads
 
 ## Table of Contents
 * [Overview](#overview)
