@@ -1,7 +1,7 @@
 
 # LinkSeq-Demux -- basecall/demultiplex and trim linked-reads
 
-[![Docker build](https://img.shields.io/badge/Docker%20build-Available-informational)](https://hub.docker.com/repository/docker/olavurmortensen/linkseq-demux)
+[![Docker build](https://img.shields.io/badge/Docker%20build-Available-informational)](https://hub.docker.com/repository/docker/fargen/linkseq-demux)
 
 ## Table of Contents
 * [Overview](#overview)
@@ -44,7 +44,7 @@ conda activate linkseq-demux
 Pull this project with `nextflow`:
 
 ```
-nextflow pull https://github.com/olavurmortensen/linkseq-demux
+nextflow pull https://github.com/fargenfo/linkseq-demux
 ```
 
 ## Running on tiny-bcl
@@ -81,14 +81,14 @@ AdapterRead2,AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
 
 ### Run demux pipeline
 
-Use the `tiny-bcl.config` file to get an idea how to define input parameters. For the `tiny-bcl` dataset, you should set `rundir` to `tiny-bcl-2.0.0` and `samplesheet` to `tiny-bcl-samplesheet-2.1.0.csv`. Additionally, you need the barcode whitelist, see the [barcode whitelist](https://github.com/olavurmortensen/linkseq#barcode-whitelist) section on how to obtain this list.
+Use the `tiny-bcl.config` file to get an idea how to define input parameters. For the `tiny-bcl` dataset, you should set `rundir` to `tiny-bcl-2.0.0` and `samplesheet` to `tiny-bcl-samplesheet-2.1.0.csv`. Additionally, you need the barcode whitelist, see the [barcode whitelist](https://github.com/fargenfo/linkseq#barcode-whitelist) section on how to obtain this list.
 
 Change the memory and CPU specifications in the configuration (under `process` and `executor`) to suit your needs before continuing.
 
 When you've made the config file and activated the `linkseq-demux` environment, run the pipeline like this:
 
 ```
-nextflow run olavurmortensen/linkseq-demux -c [your config]
+nextflow run fargenfo/linkseq-demux -c [your config]
 ```
 
 ### Output
