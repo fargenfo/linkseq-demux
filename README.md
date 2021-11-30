@@ -1,4 +1,3 @@
-
 # LinkSeq-Demux -- basecall/demultiplex and trim linked-reads
 
 [![Docker build](https://img.shields.io/badge/Docker%20build-Available-informational)](https://hub.docker.com/repository/docker/fargen/linkseq-demux)
