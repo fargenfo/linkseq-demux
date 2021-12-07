@@ -14,3 +14,4 @@ RUN conda config --set channel_priority strict && \
     conda env create -f /environment.yml && \
     conda clean -a
 ENV PATH /opt/conda/envs/linkseq-demux/bin:$PATH
+RUN nextflow pull fargenfo/linkseq-demux
